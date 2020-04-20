@@ -17,8 +17,6 @@ RUN apk --no-cache update && \
     apk add --update --no-cache ca-certificates git openssh && \
     apk add --update -t deps curl tar gzip make bash && \
     rm -rf /var/cache/apk/*
-RUN apk add --no-cache python3
-RUN pip3 install --upgrade awscli
 
 WORKDIR /get
 # helm - https://github.com/helm/helm/releases
@@ -63,7 +61,8 @@ RUN chmod +x *
 
 FROM alpine:$ALPINE_VERSION
 RUN apk add --update --no-cache ca-certificates openssl git openssh
-RUN apk -uv add --no-cache groff jq less
+RUN apk -uv add --no-cache groff jq less python3
+RUN pip3 install --upgrade awscli
 COPY --from=builder /build /usr/local/bin/
 COPY --from=praqma/helmsman /bin/helmsman /usr/local/bin/helmsman
 
