@@ -12,7 +12,7 @@ This is a docker image containing various tools useful for communicating with Am
 * openshift cli (oc)
 
 # Build & push image
-docker build -t ${HUB-USER}/k8s-tools:latest .
+docker build -t ${HUB_USER}/k8s-tools:latest .
 
 # Push to Dockerhub
-docker push ${HUB-USER}/k8s-tools:latest
+docker push ${HUB_USER}/k8s-tools:latest
