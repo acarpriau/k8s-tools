@@ -57,8 +57,11 @@ RUN cp /get/oc .
 RUN cp /get/aws-iam-authenticator .
 RUN chmod +x *
 
-FROM alpine:$ALPINE_VERSION
-RUN apk add --update --no-cache ca-certificates openssl git openssh
+# Using below image to solve glibc dependency of 'oc' - https://github.com/openshift/origin/issues/11135
+FROM frolvlad/alpine-glibc:latest
+# ADDED: Resolve issue x509 oc login issue
+RUN apk add --update ca-certificates
+RUN apk add --update --no-cache openssl git openssh
 RUN apk -uv add --no-cache bash curl gettext groff jq less python3
 RUN pip3 install yq
 RUN pip3 install --upgrade awscli
